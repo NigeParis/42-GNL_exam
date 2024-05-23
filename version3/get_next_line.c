@@ -5,46 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nrobinso <nrobinso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 11:26:22 by nrobinso          #+#    #+#             */
-/*   Updated: 2024/05/22 18:36:41 by nrobinso         ###   ########.fr       */
+/*   Created: 2024/05/22 15:52:42 by nrobinso          #+#    #+#             */
+/*   Updated: 2024/05/23 12:25:57 by nrobinso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_putchar(int c)
+void	ft_putchar(char c)
 {
-	write(1, &c, 1);
+	write (1, &c, 1);
 }
 
 void	ft_putstr(char *str)
 {
 	int i;
-	
+
 	i = 0;
 	if (!str)
 		return ;
 	while (str && str[i])
 	{
-		ft_putchar(str[i]);		
+		ft_putchar(str[i]);
 		i++;
-	}
-}
-
-int	ft_strcpy(char *copy, char *str)
-{
-	int i;
-
-	i = 0;
-	if (!str || !copy)
-		return (1);
-	while (str && str[i])
-	{
-		copy[i] = str[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return(0);
+	}		
 }
 
 int	ft_strlen(char *str)
@@ -59,12 +43,42 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
+char *ft_strchr(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str && str[i])
+	{
+		if (str[i] == '\n')
+			return (&str[i]);
+		i++;
+	}
+return (0);
+}
+
+void	ft_strcpy(char *copy, const char *str)
+{
+	int	i;
+	
+	i = 0;
+	if (!str || !copy)
+		return ;
+	while (str && str[i])
+	{
+		copy[i] = str[i];
+		i++;
+	}
+	copy[i] = '\0';
+}
 
 char	*ft_strdup(char *str)
 {
 	char *copy;
-	int   len;
-
+	int	 len;
+	
 	len = ft_strlen(str);
 	copy = NULL;
 	copy = malloc(sizeof(char) * len + 1);
@@ -74,104 +88,83 @@ char	*ft_strdup(char *str)
 	return (copy);
 }
 
-char *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char *join;
-	int	len_s1;
-	int	len_s2;
+	int len_s1;
+	int len_s2;
 	int i;
 	int j;
 
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
 	join = NULL;
 	i = 0;
 	j = 0;
-	
 	if (!s1)
-		return (ft_strdup(s2));
-	join = malloc(sizeof(char) * len_s1 + len_s2 + 1);
+		return(ft_strdup(s2));
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	join = malloc(sizeof(char) * (len_s1 + len_s2 + 1));
 	if (!join)
-		return (0);
-	while (s1[i])
+		return (0);	
+	while (s1 && s1[i])
 	{
 		join[i] = s1[i];
-		i++;	
+		i++;
 	}
 	join[i] = '\0';
-	while (s2[j])
+	while (s2 && s2[j])
 	{
 		join[i] = s2[j];
 		i++;
-		j++;
+		j++;		
 	}
 	join[i] = '\0';
-	if (s1)
-		free(s1);
+	free(s1);
 	return (join);	
 }
 
-char *ft_strchr(char *str)
-{
-	int i;
 
-	i = 0;
-	if (!str)
-		return(0);
-	while (str && str[i])
-	{
-		if (str[i] == '\n')
-			return (&str[i]);
-		i++;
-	}
-	return (0);
-}
-
-
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	static char buff[BUFFER];
 	char *line;
-	char *newline;
+	char *newline_pos;
+	int line_end;
 	int nbytes;
-	int linelen;
-	
+
+
 	nbytes = 1;
-	newline = NULL;
-	linelen = 0;
+	newline_pos = NULL;
+	line_end = 0;
 	line = ft_strdup(buff);
-	while (!(newline = ft_strchr(line)) && nbytes)
+	while (!(newline_pos = ft_strchr(line)) && nbytes)
 	{
 		nbytes = read(fd, buff, BUFFER);
 		buff[nbytes] = '\0';
-		line = ft_strjoin(line, buff);		
+		line = ft_strjoin(line, buff);	
 	}
-	if(ft_strlen(line) == 0)
+	if ((ft_strlen(line) == 0))
 		return (free(line), NULL);
-	if (newline != NULL)
+	if (newline_pos != NULL)
 	{
-		linelen = newline - line + 1;
-		ft_strcpy(buff, newline + 1);
-	}	
+		line_end = newline_pos - line + 1;
+		ft_strcpy(buff, newline_pos + 1);
+
+		
+	}
 	else
 	{
-		linelen = ft_strlen(line);
+		line_end = ft_strlen(line);
 		buff[0] = '\0';
+		
 	}
-	line[linelen] = '\0';
+	line[line_end] = '\0';	
 	return (line);
 }
 
-int	main(void)
+
+int main(void)
 {
-	// char *line;
-	// int file = 0;
-
-	
-	// line = get_next_line(file);
-	// ft_putstr(line);
-	// free(line);
-
 	int fd = open("./test.txt", R_OK);
 	while (1)
 	{

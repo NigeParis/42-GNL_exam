@@ -6,13 +6,22 @@
 /*   By: nrobinso <nrobinso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:26:22 by nrobinso          #+#    #+#             */
-/*   Updated: 2024/05/22 18:36:41 by nrobinso         ###   ########.fr       */
+/*   Updated: 2024/05/22 18:09:27 by nrobinso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 
-void	ft_putchar(int c)
+# ifndef BUFFER
+#  define BUFFER 5
+# endif
+
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
