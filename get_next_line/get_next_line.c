@@ -6,7 +6,7 @@
 /*   By: nrobinso <nrobinso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 09:11:12 by nrobinso          #+#    #+#             */
-/*   Updated: 2024/05/24 14:52:42 by nrobinso         ###   ########.fr       */
+/*   Updated: 2024/05/24 23:18:43 by nrobinso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ char *ft_strchr(char *str, char c)
 			return (&str[i]);
 		i++;
 	}
-
-
 	return (NULL);	
 }
 
