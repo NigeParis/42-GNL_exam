@@ -6,7 +6,7 @@
 /*   By: nrobinso <nrobinso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 09:11:12 by nrobinso          #+#    #+#             */
-/*   Updated: 2024/05/24 13:13:29 by nrobinso         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:52:42 by nrobinso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	join[0] = '\0';
 	ft_strcpy(join, s1);
 	ft_strcpy(join + len_s1, s2);
+	if (s1)
+		free(s1);
 	return (join);	
 }
 
