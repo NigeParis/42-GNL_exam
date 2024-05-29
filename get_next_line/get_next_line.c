@@ -6,7 +6,7 @@
 /*   By: nrobinso <nrobinso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 09:11:12 by nrobinso          #+#    #+#             */
-/*   Updated: 2024/05/28 14:35:14 by nrobinso         ###   ########.fr       */
+/*   Updated: 2024/05/29 08:35:35 by nrobinso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,18 @@ int main(void)
 {
 	int fd = 0;
 	char *str;
+	int i = 0;
+
+	fd = open("./test.txt", R_OK);
 	
+	while (i < 2)
+	{
 	str = get_next_line(fd);
+	
 	printf("%s", str);
 	free (str);
-
+	i++;
+	}
 
 	return (0);
 }
