@@ -6,7 +6,7 @@
 /*   By: nrobinso <nrobinso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 09:11:12 by nrobinso          #+#    #+#             */
-/*   Updated: 2024/05/29 08:35:35 by nrobinso         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:06:56 by nrobinso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char	*get_next_line(int fd)
 {
-	if (((BUFFER_SIZE < 0) || BUFFER_SIZE > 219000000) || (fd < 0))
+	if (((BUFFER_SIZE < 1) || BUFFER_SIZE > 219000000) || (fd < 0))
 		return (NULL);
 	static char buff[BUFFER_SIZE + 1];
 	char *line;
@@ -56,23 +56,54 @@ char	*get_next_line(int fd)
 }
 
 
-
 int main(void)
 {
 	int fd = 0;
 	char *str;
-	int i = 0;
+	//int i = 0;
 
 	fd = open("./test.txt", R_OK);
-	
-	while (i < 2)
-	{
 	str = get_next_line(fd);
-	
 	printf("%s", str);
 	free (str);
-	i++;
-	}
+	
+	str = get_next_line(fd);
+	printf("%s", str);
+	free (str);
+
+	str = get_next_line(fd);
+	printf("%s", str);
+	free (str);
+	
+	// fd = open("./test.txt", R_OK);
+	// while (1)
+	// {
+	// 	str = get_next_line(fd);
+	// 	if (!str)
+	// 		break ;	
+	// 	printf("%s", str);
+	// 	free (str);
+	// }
+	// free (str);
 
 	return (0);
 }
+
+// int main(void)
+// {
+// 	int fd = 0;
+// 	char *str;
+
+// 	fd = open("./test.txt", R_OK);
+	
+// 	while (1)
+// 	{
+// 		str = get_next_line(fd);
+// 		if (!str)
+// 			break ;
+// 		printf("%s", str);
+// 		free (str);
+// 	}
+
+// 	return (0);
+// }
